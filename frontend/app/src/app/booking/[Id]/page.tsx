@@ -1,5 +1,14 @@
 import React from "react";
 import Link from "next/link";
+
+type ParamsType = {
+  Id: number;
+};
+
+type BookingParams = {
+  params: ParamsType;
+};
+
 // Get booking by id
 async function getBookingById(id: number) {
   const res = await fetch(`http://host.docker.internal:5000/booking/${id}`, {
@@ -15,8 +24,9 @@ async function getBookingById(id: number) {
 }
 
 // Component that shows a booking
-const Booking = async ({ params }) => {
+const Booking = async ({ params }: BookingParams) => {
   const booking = await getBookingById(params.Id);
+  
   return (
     <div className="flex flex-col items-center mt-8">
       <p className="text-xl">
