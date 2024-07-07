@@ -27,7 +27,6 @@ const BookingList: React.FC = async () => {
               <p>Booking on {booking.date} starting at {booking.start_time}</p>
               </Link>
             </div>
-            
           ))}
         </div>
       }
