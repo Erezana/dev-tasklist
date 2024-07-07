@@ -1,4 +1,4 @@
-/* 'use client'
+'use client'
 import React, { useState } from 'react';
 
 const BookingForm = () => {
@@ -9,13 +9,16 @@ const BookingForm = () => {
   const [date, setDate] = useState('');
   const [message, setMessage] = useState('');
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     try {
+      
       const res = await fetch('http://host.docker.internal:5000/api/bookings', {
         cache: 'no-store', 
-        mode: 'no-cors' ,
+        
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +27,7 @@ const BookingForm = () => {
           service,
           doctor_name: doctorName,
           start_time: startTime,
-          end_time: endTime,
+          end_time: endTime,        
           date,
         }),
       });
@@ -33,12 +36,12 @@ const BookingForm = () => {
         throw new Error('Failed to submit booking');
       }
       setMessage('Booking successfully submitted');
+      window.location.href = '/';
     } catch (error) {
       console.error('Error submitting booking:', error);
-      setMessage('Failed ');
+      setMessage('Failed');
     }
   };
-
   return (
     <div>
       <h2>Book Appointment</h2>
@@ -76,53 +79,4 @@ const BookingForm = () => {
 };
 
 export default BookingForm;
- */
-"use client";
-import React from "react";
-const TestApi = () => {
-  const postData = {
-    service: "Service A",
-    doctor_name: "Dr. Smith",
-    start_time: "09:00 AM",
-    end_time: "10:00 AM",
-    date: "2024-03-02",
-  };
-  const handleSubmit = async () => {
-    try {
-      const res = await fetch("http://host.docker.internal:5000/api/bookings", {
-        method: "POST",
-        cache: "no-store",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          service: "Service A",
-          doctor_name: "Dr. Smith",
-          start_time: "09:00 AM",
-          end_time: "10:00 AM",
-          date: "2024-03-02",
-        }),
-      });
 
-      if (!res.ok) {
-        console.log('res -> ', res);
-        throw new Error("Failed to submit booking");
-      }
-
-      console.log("res -> ", res);
-
-      const data = await res.json();
-      console.log("Booking successfully submitted:", data);
-    } catch (error) {
-      console.error("Error submitting booking:", error);
-    }
-  };
-  return (
-    <div>
-      <button onClick={handleSubmit}>Submit Booking</button>
-    </div>
-  );
-};
-
-export default TestApi;
